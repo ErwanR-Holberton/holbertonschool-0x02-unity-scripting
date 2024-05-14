@@ -5,11 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    private int score = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("Pickup"))
+        {
+            score += 1;
+            Debug.Log("Score: " + score);
+            Destroy(other.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -17,19 +22,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+            transform.position += Vector3.back * moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
     }
 }
