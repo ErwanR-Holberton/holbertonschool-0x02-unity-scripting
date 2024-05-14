@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,8 +23,11 @@ public class PlayerController : MonoBehaviour
             health -= 1;
             Debug.Log("Health: " + health);
         }
+        else if (other.CompareTag("Goal"))
+        {
+            Debug.Log("You win!");
+        }
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -42,6 +46,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        }
+        if (health == 0)
+        {
+            Debug.Log("Game Over!");
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
         }
     }
 }
